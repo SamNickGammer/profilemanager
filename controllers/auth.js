@@ -2,7 +2,23 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const validator = require('validator');
-const { SECRET } = require('../utils/config');
+
+async function sha256(message) {
+  // encode as UTF-8
+  const msgBuffer = new TextEncoder().encode(message);
+
+  // hash the message
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+
+  // convert ArrayBuffer to Array
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+
+  // convert bytes to hex string
+  const hashHex = hashArray
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+  return hashHex;
+}
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -25,7 +41,8 @@ const loginUser = async (req, res) => {
     id: user._id,
   };
 
-  const token = jwt.sign(payloadForToken, SECRET);
+  // const token = jwt.sign(payloadForToken, SECRET);
+  const token = sha256(payloadForToken);
 
   res
     .status(200)
@@ -68,8 +85,9 @@ const registerUser = async (req, res) => {
   const payloadForToken = {
     id: savedUser._id,
   };
+  // const token = jwt.sign(payloadForToken, SECRET);
+  const token = sha256(payloadForToken);
 
-  const token = jwt.sign(payloadForToken, SECRET);
   console.log('Tokem[73]: ', token);
   res.status(200).send({
     token,
