@@ -63,7 +63,7 @@ const registerUser = async (req, res) => {
   });
   console.log('AUTH.JS[64]:: ', displayName, email, passwordHash);
   const savedUser = await user.save();
-  console.log('SaveUser[66]: ', saveUser);
+  console.log('SaveUser[66]: ', savedUser);
 
   const payloadForToken = {
     id: savedUser._id,
