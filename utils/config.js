@@ -2,14 +2,15 @@ require('dotenv').config();
 const cloudinary = require('cloudinary').v2;
 
 const PORT = process.env.PORT || 3005;
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI =
+  'mongodb+srv://samnick:57489Raj@mernproject.erb1pv0.mongodb.net/?retryWrites=true&w=majority';
 const SECRET = process.env.SECRET;
-const UPLOAD_PRESET = process.env.UPLOAD_PRESET || 'ml_default';
+const UPLOAD_PRESET = 'mernprofiler' || 'ml_default';
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: 'samnickgammer',
+  api_key: '583196398221186',
+  api_secret: 'HnSZ_AJ44B5HLmFeFeBZD3jU4C8',
 });
 
 module.exports = {
