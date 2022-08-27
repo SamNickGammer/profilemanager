@@ -61,14 +61,16 @@ const registerUser = async (req, res) => {
     email,
     passwordHash,
   });
-
+  console.log('AUTH.JS[64]:: ', displayName, email, passwordHash);
   const savedUser = await user.save();
+  console.log('SaveUser[66]: ', saveUser);
 
   const payloadForToken = {
     id: savedUser._id,
   };
 
   const token = jwt.sign(payloadForToken, SECRET);
+  console.log('Tokem[73]: ', token);
   res.status(200).send({
     token,
     displayName: savedUser.displayName,
